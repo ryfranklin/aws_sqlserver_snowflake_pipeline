@@ -1,0 +1,2 @@
+# aws_sqlserver_snowflake_pipeline
+Education project
