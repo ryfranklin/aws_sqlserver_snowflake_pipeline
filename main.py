@@ -2,6 +2,7 @@
 from frameworks_and_drivers.aws_session import AwsSession
 from interface_adapters.rds_adapter import RDSAdapter
 from interface_adapters.s3_adapter import S3Adapter
+from scripts.initialize_database import CreateDatabaseAndOrdersTable
 
 
 class MainApp:
@@ -15,15 +16,25 @@ class MainApp:
         self.s3_adapter = S3Adapter(self.session)
 
     def run(self):
+        creator = CreateDatabaseAndOrdersTable()
+        creator.create_database()
+        creator.switch_database()
+        creator.create_orders_table()
+        # print("==================================")
         # print("Creating RDS instance...")
         # self.rds_adapter.create_instance()
         # print("RDS instance created successfully!")
-        print("==================================")
-        buckets = self.s3_adapter.list_buckets()
-        print("Listing Buckets...")
-        for bucket in buckets['Buckets']:
-            print(bucket['Name'])
-        print("==================================")
+        # print("==================================")
+        # print("Creating S3 bucket...")
+        # self.s3_adapter.create_bucket('ms3dm-test-bronze-bucket')
+        # print("S3 bucket created successfully!")
+        # print("==================================")
+        # print("==================================")
+        # print("List S3 buckets...")
+        # buckets = self.s3_adapter.list_buckets()
+        # for bucket in buckets['Buckets']:
+        #     print(bucket['Name'])
+        # print("==================================")
 
     # def rds_create_operations(self):
     #     # Create Session

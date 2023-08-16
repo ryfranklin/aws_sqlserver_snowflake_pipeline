@@ -1,0 +1,3 @@
+class SeedData:
+    # Business logic for seeding data
+    ...
