@@ -39,7 +39,7 @@ class Settings:
 
     def get_sqlserver_db_connection(self):
         return {
-            "server": os.getenv('RDS_SQLSERVER_DB_INSTANCE_IDENTIFIER'),
+            "server": os.getenv('AWS_SQLSERVER_INSTANCE_IDENTIFIER'),
             "database": os.getenv('RDS_SQLSERVER_DB_NAME'),
             "username": os.getenv('RDS_SQLSERVER_MASTER_USERNAME'),
             "password": os.getenv('RDS_SQLSERVER_MASTER_PASSWORD'),

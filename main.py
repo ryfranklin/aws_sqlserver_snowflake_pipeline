@@ -2,7 +2,12 @@
 from frameworks_and_drivers.aws_session import AwsSession
 from interface_adapters.rds_adapter import RDSAdapter
 from interface_adapters.s3_adapter import S3Adapter
-from scripts.initialize_database import CreateDatabaseAndOrdersTable
+from interface_adapters.sqlserver_connection_adapter import (
+    SqlServerConnectionAdapter
+)
+from use_cases.test_sqlserver_connection import TestSqlServerConnection
+from config.settings import Settings
+# from use_cases.test_sqlserver_connection import TestSqlServerConnection
 
 
 class MainApp:
@@ -14,12 +19,17 @@ class MainApp:
         self.rds_adapter = RDSAdapter(self.session)
         # initialize the S3 adapter
         self.s3_adapter = S3Adapter(self.session)
+        # start a sql server connection
+        self.config = Settings().get_sqlserver_db_connection()
+        self.sqlserver_connection = SqlServerConnectionAdapter(
+            server=self.config['server'],
+            username=self.config['username'],
+            password=self.config['password']
+        ).get_connection()
 
     def run(self):
-        creator = CreateDatabaseAndOrdersTable()
-        creator.create_database()
-        creator.switch_database()
-        creator.create_orders_table()
+        test = TestSqlServerConnection(self.sqlserver_connection)
+        print(test.execute())
         # print("==================================")
         # print("Creating RDS instance...")
         # self.rds_adapter.create_instance()
@@ -32,7 +42,7 @@ class MainApp:
         # print("==================================")
         # print("List S3 buckets...")
         # buckets = self.s3_adapter.list_buckets()
-        # for bucket in buckets['Buckets']:
+        # for bucket in buckets['Buckets']
         #     print(bucket['Name'])
         # print("==================================")
 

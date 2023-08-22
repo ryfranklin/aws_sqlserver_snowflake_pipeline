@@ -1,7 +1,7 @@
 from entities.glue_entities import GlueJob, OrdersTable
 
 
-class CreateAndPopulateOrdersTable:
+class GlueCreateAndPopulateOrdersTable:
     """Use Case: Create and Populate Orders Table using Glue."""
 
     def __init__(self, glue_job: GlueJob, orders_table: OrdersTable):
